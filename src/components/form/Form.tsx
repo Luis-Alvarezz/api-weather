@@ -6,32 +6,18 @@ import styles from './Form.module.css'
 import { useForm } from 'react-hook-form'
 import { Error } from '../errors/Error'
 
-export default function Form() {
-  // const [search, setSearch] = useState<SearchType>({
-  //   city: '',
-  //   country: ''
-  // })
+type FormProps = {
+  fetchWeather: (data: SearchType) => Promise<void>
+}
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
-  //   // console.log('desde handleChange', e.target.value)
-  //   setSearch({
-  //     ...search,
-  //     [e.target.name]: e.target.value
-  //   })
-  // }
+export default function Form({fetchWeather}: FormProps) {
 
   const { register, handleSubmit, formState: { errors } } = useForm<SearchType>()
-
-  // const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => { // * Tipado de 'e' lo tomamos de colocar en el Form onSubmit(e=>)
-  //   e.preventDefault()
-  //   if (Object.values(search).includes('')) {
-  //     console.log('Si hay Campos Vacios')
-  //   }
-  // }
-
   const searchCountryWeather = (data: SearchType) => {
     // console.log('Searching Weather...')
     console.log(data)
+
+    fetchWeather(data)
   }
 
   return (

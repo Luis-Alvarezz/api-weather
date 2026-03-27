@@ -19,7 +19,7 @@
   color: var(--white)
 }
 .form select {
-  color: gray;
+  color: rgb(214, 210, 210);
 }
 .field ::placeholder {
   color: var(--white);
