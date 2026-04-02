@@ -107,7 +107,7 @@ export default function useWeather() {
       // ! Opcion 4: Libreria 'Valibot'
       const { data: WeatherResult } = await axios(weatherUrl)
       const result = parse(WeatherSchema, WeatherResult)
-      console.log(result);
+      // console.log(result);
       if (result) {
         // console.log(result.name);
         setWeather(result)

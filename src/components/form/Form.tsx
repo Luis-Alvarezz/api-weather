@@ -15,7 +15,7 @@ export default function Form({fetchWeather}: FormProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<SearchType>()
   const searchCountryWeather = (data: SearchType) => {
     // console.log('Searching Weather...')
-    console.log(data)
+    // console.log(data)
 
     fetchWeather(data)
   }
