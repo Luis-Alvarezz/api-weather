@@ -28,24 +28,25 @@ const WeatherSchema = object({
 
 export type WeatherTypeSchema = InferOutput<typeof WeatherSchema>
 
-
+const initialState = {
+  name: '',
+  main: {
+    temp: 0,
+    temp_max: 0,
+    temp_min: 0
+  }
+}
 export default function useWeather() {
 
-  const [weather, setWeather] = useState<WeatherTypeSchema>({
-    name: '',
-    main: {
-      temp: 0,
-      temp_max: 0,
-      temp_min: 0
-    }
-  })
+  const [weather, setWeather] = useState<WeatherTypeSchema>(initialState)
 
-  const [loading, setLoading] = useState(false) 
+  const [loading, setLoading] = useState(false)
 
   const fetchWeather = async (dataSearch: SearchType) => {
     // console.log('Consultando...')
     const APIKey = import.meta.env.VITE_API_KEY
     setLoading(true)
+    setWeather(initialState)
 
     // ! Opcion 2: Type Cards o ASSERTIONS Aqui SI revisamos el JSON que estamos obteniendo
     // function isWeatherResponse(weatherResult: unknown): weatherResult is Weather {
@@ -103,7 +104,7 @@ export default function useWeather() {
         // console.log(result.name);
         setWeather(result)
       }
-      
+
     } catch (error) {
       console.log('Error in method fetchWeather: ', error)
     } finally { // * Se ejecute el Try o Catch, este codigo se ejecuta siempre
@@ -112,7 +113,7 @@ export default function useWeather() {
   }
 
   // ! Comprobar que el campo 'name' del objeto contenga informacion para mostrar inf de la API a Componente
-  const hasWeatherData = useMemo(() => weather.name , [weather])
+  const hasWeatherData = useMemo(() => weather.name, [weather])
 
   return {
     // * Hacer global los metodos del customHook
