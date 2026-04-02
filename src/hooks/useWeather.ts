@@ -1,7 +1,8 @@
 import axios from "axios"
 import type { SearchType } from "../types/type"
 // import z from "zod"
-import { object, string, number, InferOutput, parse } from 'valibot'
+import { object, string, number, type InferOutput, parse } from 'valibot'
+import { useMemo, useState } from "react"
 
 // ! Opcion 3: Libreria 'Zod'
 // const Weather = z.object({
@@ -25,10 +26,19 @@ const WeatherSchema = object({
   })
 })
 
-type WeatherTypeSchema = InferOutput<typeof WeatherSchema>
+export type WeatherTypeSchema = InferOutput<typeof WeatherSchema>
 
 
 export default function useWeather() {
+
+  const [weather, setWeather] = useState<WeatherTypeSchema>({
+    name: '',
+    main: {
+      temp: 0,
+      temp_max: 0,
+      temp_min: 0
+    }
+  })
 
   const fetchWeather = async (dataSearch: SearchType) => {
     // console.log('Consultando...')
@@ -87,16 +97,22 @@ export default function useWeather() {
       const result = parse(WeatherSchema, WeatherResult)
       console.log(result);
       if (result) {
-        console.log(result.name);
+        // console.log(result.name);
+        setWeather(result)
       }
-
+      
     } catch (error) {
       console.log('Error in method fetchWeather: ', error)
     }
   }
 
+  // ! Comprobar que el campo 'name' del objeto contenga informacion para mostrar inf de la API a Componente
+  const hasWeatherData = useMemo(() => weather.name , [weather])
+
   return {
     // * Hacer global los metodos del customHook
-    fetchWeather
+    fetchWeather,
+    weather,
+    hasWeatherData
   }
 }
