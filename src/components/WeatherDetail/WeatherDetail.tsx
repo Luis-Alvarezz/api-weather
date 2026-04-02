@@ -1,7 +1,7 @@
 // rfc - Para crear estructura basica 
 
 import type { WeatherTypeSchema } from "../../hooks/useWeather"
-import { formatTemperature } from "../utils"
+import { formatTemperature } from "../../utils"
 import styles from './WeatherDetail.module.css'
 
 type WeatherDetailProps = {
