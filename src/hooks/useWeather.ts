@@ -40,9 +40,12 @@ export default function useWeather() {
     }
   })
 
+  const [loading, setLoading] = useState(false) 
+
   const fetchWeather = async (dataSearch: SearchType) => {
     // console.log('Consultando...')
     const APIKey = import.meta.env.VITE_API_KEY
+    setLoading(true)
 
     // ! Opcion 2: Type Cards o ASSERTIONS Aqui SI revisamos el JSON que estamos obteniendo
     // function isWeatherResponse(weatherResult: unknown): weatherResult is Weather {
@@ -103,6 +106,8 @@ export default function useWeather() {
       
     } catch (error) {
       console.log('Error in method fetchWeather: ', error)
+    } finally { // * Se ejecute el Try o Catch, este codigo se ejecuta siempre
+      setLoading(false)
     }
   }
 
@@ -113,6 +118,7 @@ export default function useWeather() {
     // * Hacer global los metodos del customHook
     fetchWeather,
     weather,
-    hasWeatherData
+    hasWeatherData,
+    loading
   }
 }
