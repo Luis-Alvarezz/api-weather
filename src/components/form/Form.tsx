@@ -4,7 +4,7 @@ import type { SearchType } from '../../types/type'
 import { countries } from '../../data/Coutries'
 import styles from './Form.module.css'
 import { useForm } from 'react-hook-form'
-import { Error } from '../errors/Error'
+import { Error } from '../Errors/Error'
 
 type FormProps = {
   fetchWeather: (data: SearchType) => Promise<void>
