@@ -1,12 +1,13 @@
 // import "./App.module.css" // * NO FUNCIONA porque NO es dependencia
 import styles from './App.module.css'
 import Form from './components/Form/Form'
+import Spinner from './components/Spinner/Spinner'
 import WeatherDetail from './components/WeatherDetail/WeatherDetail'
 import useWeather from './hooks/useWeather'
 
 function App() {
 
-  const { fetchWeather, weather, hasWeatherData } = useWeather()
+  const { fetchWeather, weather, hasWeatherData, loading } = useWeather()
 
   return (
     <>
@@ -18,6 +19,9 @@ function App() {
           fetchWeather={fetchWeather}
         />
 
+        {
+          loading && <Spinner />
+        }
         {
           hasWeatherData && 
           <WeatherDetail
