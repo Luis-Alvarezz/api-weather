@@ -61,7 +61,7 @@ export default function useWeather() {
     // }
 
     try {
-      const geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${dataSearch.city},${dataSearch.country}&appid=${APIKey}`
+      const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${dataSearch.city},${dataSearch.country}&appid=${APIKey}`
       // console.log(geoURL);
       const { data } = await axios.get(geoURL) // * Consulta API del Clima
       // console.log(data);
