@@ -37,10 +37,9 @@ const initialState = {
   }
 }
 export default function useWeather() {
-
   const [weather, setWeather] = useState<WeatherTypeSchema>(initialState)
-
   const [loading, setLoading] = useState(false)
+  const [notFound, setNotFound] = useState(false)
 
   const fetchWeather = async (dataSearch: SearchType) => {
     // console.log('Consultando...')
@@ -66,9 +65,18 @@ export default function useWeather() {
       // console.log(geoURL);
       const { data } = await axios.get(geoURL) // * Consulta API del Clima
       // console.log(data);
+      // console.log(data[0]);
+      // ! Comprobar si existe o no ciudad
+      if (!data[0]) {
+        // console.log('Clima no encontrado');
+        setNotFound(true)
+        return
+      }
       const lat = data[0].lat
       const lon = data[0].lon
       // console.log(lat, lon)
+      
+
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKey}`
       // console.log(weatherUrl);
       // ! Opcion 1: CASTEO A TYPE (asignarle el valor yo)
@@ -120,6 +128,7 @@ export default function useWeather() {
     fetchWeather,
     weather,
     hasWeatherData,
-    loading
+    loading,
+    notFound
   }
 }
